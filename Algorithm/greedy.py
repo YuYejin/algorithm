@@ -50,3 +50,15 @@ def get_max_value(data_list, capacity):
   return total_value, details
 
 print(get_max_value(data_list, 30)) # (24.5, [[10, 10, 1], [15, 12, 1], [20, 10, 0.25]])
+
+# 관련 문제 - 백준 11399번
+n = int(input())
+s = list(map(int, input().split()))
+minimum = 0
+
+s.sort()
+
+for i in range(n):
+  for j in range(i+1):
+    minimum += s[j]
+print(minimum)
