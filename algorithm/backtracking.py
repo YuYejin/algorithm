@@ -1,8 +1,25 @@
-# 백 트래킹
-# - 제약 조건 만족 문제에서 해를 찾기 위한 전략
-# - 모든 경우의 수(후보군)를 상태 공간 트리를 통해 표현
-# - 각 후보군을 DFS 방식으로 확인
-# - Promising : 해당 루트가 조건에 맞는지 검사하는 기법
-# - Pruning(가지치기) : 조건에 맞지 않으면 포기하고 다른 루트로 돌아가서 탐색 시간 절약하는 기법
-
 # N Qeen 문제
+def is_available(candidate, current_col):
+  current_row = len(candidate)
+  for queen_row in range(current_row):
+    if candidate[queen_row] == current_col or abs(candidate[queen_row] - current_col) == current_row - queen_row:
+      return False
+  return True
+
+def DFS(N, current_row, current_candidate, final_result): # current_candidate: 현재까지 퀸의 배치 정보
+  if current_row == N:
+    final_result.append(current_candidate[:]) # 얇은 복사
+    return
+
+  for candidate_col in range(N):
+    if is_available(current_candidate, candidate_col): # candidate_col: 열의 번호
+      current_candidate.append(candidate_col)
+      DFS(N, current_row + 1, current_candidate, final_result)
+      current_candidate.pop() # 백트랙
+
+def solve_n_queens(N): # 체스판의 퀸 개수 N
+  final_result = []
+  DFS(N, 0, [], final_result)
+  return final_result
+
+print(solve_n_queens(4))
