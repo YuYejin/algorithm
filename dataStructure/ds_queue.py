@@ -12,7 +12,7 @@ print(data_queue.get())
 print(data_queue.qsize())
 print(data_queue.get())
 
-# LifoQueue()
+# LifoQueue() -> LILO
 data_queue = queue.LifoQueue() 
 data_queue.put("funcoding")
 data_queue.put(1)
@@ -28,7 +28,7 @@ print(data_queue.qsize()) # 3
 print(data_queue.get()) # (5, 1)
 print(data_queue.get()) # (10, 'korea')
 
-# 프로그래밍 연습1 - 리스트 변수로 큐를 다루는 enqueue, dequeue 기능 구현
+# 프로그래밍 연습 - 리스트 변수로 큐를 다루는 enqueue, dequeue 기능 구현
 queue_list = list()
 
 def enqueue(data):
