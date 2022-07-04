@@ -61,3 +61,13 @@ class Heap:
                         popped_idx = right_child_popped_idx
 
         return returned_data
+
+heap = Heap(15)
+heap.insert(10)
+heap.insert(8)
+heap.insert(5)
+heap.insert(4)
+heap.insert(20)
+print(heap.heap_array) # [None, 20, 10, 15, 5, 4, 8]
+heap.pop() # 20
+print(heap.heap_array_array) # [None, 15, 10, 8, 5, 4]
