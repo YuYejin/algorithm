@@ -29,10 +29,10 @@ print(tuple) # ((1, 3), (2, 3)): 후에 대소비교에 가능하기 때문
 # <String>: 문자열 자료형
 # Immutable 변수
 ## List로 변환하여 사용하기
-a = "an subin"
-for i in len(a):
-    a[i] = "1"
-print(a) # 에러 발생
+# a = "an subin"
+# for i in len(a):
+#     a[i] = "1"
+# print(a) # 에러 발생
 # + 연산과 * 연산 조심하기
 ## join() method 활용하기
 s = ""
@@ -87,10 +87,10 @@ print(a) # 1
 print(b) # 2
 print(c) # 3
 # Map과 함께 사용하여 입력 받기
-a, b = map(int, input().split()) # 3 7
-print(a, b) # 3 7
-print(a) # 3
-print(b) # 7
+# a, b = map(int, input().split()) # 3 7
+# print(a, b) # 3 7
+# print(a) # 3
+# print(b) # 7
 # 동시에 변해야하는 객체에 효율적 표현 가능
 a, b = 3, 7
 print(a) # 3
@@ -106,3 +106,49 @@ b = tmp
 a, b = 3, 7
 a, b = b, a
 print(a, b) # 7 3
+
+# <Dictionary>: 딕셔너리 자료형
+# key나 value를 사용하여 효율적인 사용 추천
+dict_test = {1:2, 2:3, 'abc':7}
+print(dict_test) # {1: 2, 2: 3, 'abc': 7}
+print(dict_test.values()) # dict_values([2, 3, 7])
+print(dict_test.keys()) # dict_keys([1, 2, 'abc'])
+# 반복문 돌리기
+## ex) for a, b in dict_exam: ~
+# 문자열 자체를 index로 사용하고 싶은 경우
+## 단어나 알파벳 counting
+portfolio = [  # 리스트에 IBM과 GOOG가 두 개씩 있다. 종목별로 합산해 보자.
+    ('GOOG', 100, 490.1),
+    ('IBM', 50, 91.1),
+    ('CAT', 150, 83.44),
+    ('IBM', 100, 45.23),
+    ('GOOG', 75, 572.45),
+    ('AA', 50, 23.15)
+]
+from collections import Counter
+total_shares = Counter()
+for name, shares, price in portfolio:
+    total_shares[name] += shares
+print(total_shares['IBM']) # 150
+
+# <Set>: 셋 자료형
+# 중복체크
+## set(list) 사용
+st = set([1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3])
+print(st) # {1, 2, 3, 4, 5}
+# ------------------
+def isCheck(lst): # set을 이용한 함수로 중복체크가 가능
+    return len(lst) == len(set(lst))
+# 합집합, 여집합, 차집합 등 집합 연산
+## 시간복잡도가 크니 주의해서 사용
+s1 = {1, 2, 3, 4, 5}
+s2 = {4, 5, 6, 7}
+# ------------------
+print(s1|s2) # {1, 2, 3, 4, 5, 6, 7}
+print(s2.union(s1)) # {1, 2, 3, 4, 5, 6, 7}
+# ------------------
+print(s1&s2) # {4, 5}
+print(s1.intersection(s2)) # {4, 5}
+# ------------------
+print(s1-s2) # {1, 2, 3}
+print(s1.difference(s2)) # {1, 2, 3}
