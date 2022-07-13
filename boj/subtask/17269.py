@@ -1,7 +1,7 @@
 N, M = map(int, input().split())
 A, B = input().split()
 
-alp = [3, 2, 1, 2, 4, 3, 1, 1, 3, 1, 3, 2, 1, 2, 2, 2, 1, 2, 1, 1, 1, 2, 2, 1]
+alp = [3, 2, 1, 2, 4, 3, 1, 3, 1, 1, 3, 1, 3, 2, 1, 2, 2, 2, 1, 2, 1, 1, 1, 2, 2, 1]
 
 AB = ''
 min_len = min(N, M)
@@ -10,4 +10,11 @@ for i in range(min_len):
 
 AB += A[min_len:] + B[min_len:]
 
+# 문자열을 아스키 코드 형태의 정수로 바꾸려면, ord(i) - ord('A')와 같이 ord('A')를 빼준다
 lst = [alp[ord(i)-ord('A')] for i in AB]
+
+for i in range(N+M-2):
+    for j in range(N+M-1-i):
+        lst[j] += lst[j+1]
+
+print("{}%".format(lst[0] % 10*10 + lst[1] % 10))
