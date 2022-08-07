@@ -19,11 +19,11 @@ def dfs(graph, start_node):
     node = need_visit.pop()
     if node not in visited:
       visited.append(node)
-      need_visit.expend(graph[node])
+      need_visit.extend(graph[node])
 
   return visited
 
-print(dfs(graph, 'A'))
+print(dfs(graph, 'A')) # ['A', 'C', 'I', 'J', 'H', 'G', 'B', 'D', 'F', 'E']
 
 # 일반적인 DFS 시간 복잡도
 # 노드 수 : V

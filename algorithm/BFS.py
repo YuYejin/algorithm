@@ -26,7 +26,7 @@ def bfs(graph, start_node):
 
   return visited
 
-print(bfs(graph, 'A')) # bfs 방식으로 탐색됨
+print(bfs(graph, 'A')) # ['A', 'B', 'C', 'D', 'G', 'H', 'I', 'E', 'F', 'J']
 
 # 일반적인 BFS 시간 복잡도
 # 노드 수 : V
