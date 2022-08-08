@@ -1,4 +1,13 @@
+## 목차
++ [1012번 - 유기농 배추](#1012번---유기농-배추)
++ [16768번 - Mooyo Mooyo](#16768번---mooyo-mooyo)
+
+---
+
 ## 1012번 - 유기농 배추
+<details>
+<summary>문제 및 입출력 펼쳐보기</summary>
+
 ### 문제
 차세대 영농인 한나는 강원도 고랭지에서 유기농 배추를 재배하기로 하였다. 농약을 쓰지 않고 배추를 재배하려면 배추를 해충으로부터 보호하는 것이 중요하기 때문에, 한나는 해충 방지에 효과적인 배추흰지렁이를 구입하기로 결심한다. 이 지렁이는 배추근처에 서식하며 해충을 잡아 먹음으로써 배추를 보호한다. 특히, 어떤 배추에 배추흰지렁이가 한 마리라도 살고 있으면 이 지렁이는 인접한 다른 배추로 이동할 수 있어, 그 배추들 역시 해충으로부터 보호받을 수 있다. 한 배추의 상하좌우 네 방향에 다른 배추가 위치한 경우에 서로 인접해있는 것이다.
 
@@ -44,6 +53,7 @@
 5
 1
 ```
+</details>
 
 ---
 
@@ -191,4 +201,80 @@ for _ in range(T):
 + (3)까지 작성 후 제출을 해보면 런타임 에러가 발생하는 것을 확인할 수 있다.
 + DFS를 사용할 때는 가끔 재귀함수 깊이가 너무 깊어질 경우 런타임 에러가 발생할 수 있는데, 재귀함수의 깊이를 제한하는 함수를 작성해주면 이 문제를 해결할 수 있다.
 + 'sys.setrecursionlimit(10000)'를 통해 재귀함수 깊이를 제한해주자.
+
+## 16768번 - Mooyo Mooyo
+<details>
+<summary>문제 및 입출력 펼쳐보기</summary>
+
+### 문제
+With plenty of free time on their hands (or rather, hooves), the cows on Farmer John's farm often pass the time by playing video games. One of their favorites is based on a popular human video game called Puyo Puyo; the cow version is of course called Mooyo Mooyo.
+
+The game of Mooyo Mooyo is played on a tall narrow grid N cells tall (1 ≤ N ≤ 100) and 10 cells wide. Here is an example with N = 6:
+```python
+0000000000
+0000000300
+0054000300
+1054502230
+2211122220
+1111111223
+```
+Each cell is either empty (indicated by a 0), or a haybale in one of nine different colors (indicated by characters 1..9). Gravity causes haybales to fall downward, so there is never a 0 cell below a haybale.
+
+Two cells belong to the same connected region if they are directly adjacent either horizontally or vertically, and they have the same nonzero color. Any time a connected region exists with at least K cells, its haybales all disappear, turning into zeros. If multiple such connected regions exist at the same time, they all disappear simultaneously. Afterwards, gravity might cause haybales to fall downward to fill some of the resulting cells that became zeros. In the resulting configuration, there may again be connected regions of size at least K cells. If so, they also disappear (simultaneously, if there are multiple such regions), then gravity pulls the remaining cells downward, and the process repeats until no connected regions of size at least K exist.
+
+Given the state of a Mooyo Mooyo board, please output a final picture of the board after these operations have occurred.
+
+---
+
+### 입력
+The first line of input contains N and K (1 ≤ K ≤ 10N). The remaining N lines specify the initial state of the board.
+
+### 출력
+Please output N lines, describing a picture of the final board state.
+
+### 예제 입력1
+```python
+6 3
+0000000000
+0000000300
+0054000300
+1054502230
+2211122220
+1111111223
+```
+
+### 예제 출력1
+```python
+0000000000
+0000000000
+0000000000
+0000000000
+1054000000
+2254500000
+```
+</details>
+
+---
+
++ 문제를 간략히 설명하자면 최대 100*100 크기의 map이 존재하고, 이 map에서 어떠한 특정 같은 수는 한 그룹이다. 이 그룹에 속한 수가 K개를 넘어가면 삭제되고 나머지가 아래로 내려온다. 이 과정을 반복했을 때 마지막에 남는 상태가 어떠한지 출력으로 나타내면 된다.
++ 이 문제는 Flood Fill 알고리즘을 기초지식으로 요구하고 있고, Flood Fill 알고리즘으로 처리한 것을 이후에 어떻게 다시 처리할 것인지도 이야기하고 있다. 마지막으로 2차원 배열에서 배열 내부에 있는 요소들을 어떻게 잘 이동시킬 수 있는가에 대한 것도 묻고 있다.
+
+### (1) input을 넣는 과정
+```python
+# import sys
+# sys. setrecursionlimit(10000)
+
+N, K = map(int, input().split())
+M = [list(input()) for _ in range(N)]
+
+while True:
+    exist = False
+    
+    if not exist:
+        break
+
+for i in M:
+    print(''.join(i))
+```
+
 
