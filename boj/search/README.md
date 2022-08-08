@@ -263,7 +263,7 @@ Please output N lines, describing a picture of the final board state.
 ### (1) input을 넣는 과정
 ```python
 # import sys
-# sys. setrecursionlimit(10000)
+# sys.setrecursionlimit(10000)
 
 N, K = map(int, input().split())
 M = [list(input()) for _ in range(N)] # [['0', '0', ..., '0'], ['0', '0', ... '0'], ...]
@@ -278,12 +278,12 @@ for i in M:
     print(''.join(i))
 ```
 + 바뀌는 것이 있을 때까지 반복하기 위해 while문을 작성한다.
-+ 이제 우리가 해야할 것은 단 두 가지이다. dfs를 돌리고, dfs가 맞으면 다시 dfs를 돌려서없애는 것이다.
++ 이제 우리가 해야할 것은 단 두 가지이다. dfs를 돌리고, dfs가 맞으면 다시 dfs를 돌려서 없애는 것이다.
 
 ### (2) 체크 배열과 결과 변수
 ```python
 # import sys
-# sys. setrecursionlimit(10000)
+# sys.setrecursionlimit(10000)
 
 def new_array(N):
     return [[False for i in range(10)] for _ in range(N)]
@@ -324,7 +324,7 @@ for i in M:
 ### (3) dfs, dfs2, down 함수
 ```python
 # import sys
-# sys. setrecursionlimit(10000)
+# sys.setrecursionlimit(10000)
 
 def new_array(N):
     return [[False for i in range(10)] for _ in range(N)]
