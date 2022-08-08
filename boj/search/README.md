@@ -82,7 +82,7 @@ for _ in range(T):
 + 이때 0은 배추가 없으므로 BFS와 DFS 탐색 조건에 어긋나게 되어 알아서 제외된다.
 + 실수로 'B\[X+1]\[Y+1] = 1' 라고 입력하지 않도록 주의하자.
 
-### (2) 체크 배열과 정답 
+### (2) 체크 배열과 정답 변수
 ```python
 T = int(input())
 B, ck = [], []
@@ -257,7 +257,8 @@ Please output N lines, describing a picture of the final board state.
 ---
 
 + 문제를 간략히 설명하자면 최대 100*100 크기의 map이 존재하고, 이 map에서 어떠한 특정 같은 수는 한 그룹이다. 이 그룹에 속한 수가 K개를 넘어가면 삭제되고 나머지가 아래로 내려온다. 이 과정을 반복했을 때 마지막에 남는 상태가 어떠한지 출력으로 나타내면 된다.
-+ 이 문제는 Flood Fill 알고리즘을 기초지식으로 요구하고 있고, Flood Fill 알고리즘으로 처리한 것을 이후에 어떻게 다시 처리할 것인지도 이야기하고 있다. 마지막으로 2차원 배열에서 배열 내부에 있는 요소들을 어떻게 잘 이동시킬 수 있는가에 대한 것도 묻고 있다.
++ 이 문제는 **Flood Fill 알고리즘**을 기초지식으로 요구하고 있고, **Flood Fill 알고리즘으로 처리한 것을 이후에 어떻게 다시 처리할 것인지**도 이야기하고 있다. 마지막으로 **2차원 배열에서 배열 내부에 있는 요소들을 어떻게 잘 이동시킬 수 있는가**에 대한 것도 묻고 있다.
++ 따라서 BFS 혹은 DFS로 그룹의 개수를 찾고 이를 반환하는 함수, 그 그룹에 속한 수가 K개가 넘었을 때 그룹을 삭제하는 함수, 요소를 내려오게 하는 함수를 반복문으로 변화가 발생하지 않을 때까지 돌려주면 될 것이다.
 
 ### (1) input을 넣는 과정
 ```python
@@ -265,16 +266,131 @@ Please output N lines, describing a picture of the final board state.
 # sys. setrecursionlimit(10000)
 
 N, K = map(int, input().split())
-M = [list(input()) for _ in range(N)]
+M = [list(input()) for _ in range(N)] # [['0', '0', ..., '0'], ['0', '0', ... '0'], ...]
 
 while True:
-    exist = False
+    exist = True
     
-    if not exist:
+    if exist: # 바뀌는 게 없을 때 반복문을 빠져 나온다.
         break
 
 for i in M:
     print(''.join(i))
 ```
++ 바뀌는 것이 있을 때까지 반복하기 위해 while문을 작성한다.
++ 이제 우리가 해야할 것은 단 두 가지이다. dfs를 돌리고, dfs가 맞으면 다시 dfs를 돌려서없애는 것이다.
+
+### (2) 체크 배열과 결과 변수
+```python
+# import sys
+# sys. setrecursionlimit(10000)
+
+def new_array(N):
+    return [[False for i in range(10)] for _ in range(N)]
+
+N, K = map(int, input().split())
+M = [list(input()) for _ in range(N)]
+ck = new_array(N)
+
+def dfs(x, y):
+  pass
+  
+def dfs2(x, y):
+  pass
+  
+def down():
+  pass
+
+while True:
+    exist = False
+    ck = new_array(N)
+    for i in range(N):
+        for j in range(10):
+            if M[i][j] == '0' or ck[i][j]:
+                continue
+            res = dfs(i, j) # 개수 세기
+            if res >= K:
+                dfs2(i, j) # 지우기
+                exist = True
+    if not exist:
+        break
+    down() # 내리기
+
+for i in M:
+    print(''.join(i))
+```
++ 반복문 내부를 작성한 결과 dfs, dfs2, down 총 3개의 함수를 짜야한다는 것을 알 수 있다.
+
+### (3) dfs, dfs2, down 함수
+```python
+# import sys
+# sys. setrecursionlimit(10000)
+
+def new_array(N):
+    return [[False for i in range(10)] for _ in range(N)]
+
+N, K = map(int, input().split())
+M = [list(input()) for _ in range(N)]
+ck = new_array(N)
+ck2 = new_array(N)
 
 
+dx, dy = [0, 1, 0, -1], [1, 0, -1, 0]
+
+
+def dfs(x, y):
+    ck[x][y] = True
+    ret = 1
+    for i in range(4):
+        xx, yy = x + dx[i], y + dy[i]
+        if xx < 0 or xx >= N or yy < 0 or yy >= 10:
+            continue
+        if ck[xx][yy] or M[x][y] != M[xx][yy]:
+            continue
+        ret += dfs(xx, yy)
+    return ret
+
+
+def dfs2(x, y, val):
+    ck2[x][y] = True
+    M[x][y] = '0'
+    for i in range(4):
+        xx, yy = x + dx[i], y + dy[i]
+        if xx < 0 or xx >= N or yy < 0 or yy >= 10:
+            continue
+        if ck2[xx][yy] or M[xx][yy] != val:
+            continue
+        dfs2(xx, yy, val)
+
+
+def down():
+    for i in range(10):
+        tmp = []
+        for j in range(N):
+            if M[j][i] != '0':
+                tmp.append(M[j][i])
+        for j in range(N-len(tmp)):
+            M[j][i] = '0'
+        for j in range(N-len(tmp), N):
+            M[j][i] = tmp[j - (N-len(tmp))]
+
+
+while True:
+    exist = False
+    ck = new_array(N)
+    ck2 = new_array(N)
+    for i in range(N):
+        for j in range(10):
+            if M[i][j] == '0' or ck[i][j]:
+                continue
+            res = dfs(i, j) # 개수 세기
+            if res >= K:
+                dfs2(i, j, M[i][j]) # 지우기
+                exist = True
+    if not exist:
+        break
+    down() # 내리기
+
+for i in M:
+    print(''.join(i))
+```
