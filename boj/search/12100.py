@@ -1,15 +1,7 @@
 from copy import deepcopy
 
 N = int(input())
-B = [list(map(int, input().split())) for i in range(N)]
-
-
-def rotate90(B, N):
-    NB = deepcopy(B)
-    for i in range(N):
-        for j in range(N):
-            NB[j][N-i-1] = B[i][j]
-    return NB
+B = [list(map(int, input().split())) for i in range(N)]  #[[2, 2, 2], [4, 4, 4], [8, 8, 8]]
 
 
 def convert(lst, N):
@@ -20,6 +12,14 @@ def convert(lst, N):
             new_list[i] = 0
     new_list = [i for i in new_list if i]
     return new_list + [0] * (N-len(new_list))
+
+
+def rotate90(B, N):
+    NB = deepcopy(B)
+    for i in range(N):
+        for j in range(N):
+            NB[j][N-i-1] = B[i][j]
+    return NB
 
 
 def dfs(N, B, count):
