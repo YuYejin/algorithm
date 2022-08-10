@@ -474,9 +474,51 @@ print(dfs(N, B, 5))
 + 'print(dfs(N, B, 5))'에서 5는 이동할 수 있는 최대 횟수이다.
 + 따라서 dfs 함수의 'if count == 0: return ret'은 이동 횟수가 0인 경우 Board의 최댓값을 반환하라는 의미이다. (이동횟수 제한)
 + 한 번 dfs를 돌릴 때에는 상하좌우 총 4가지의 브랜치를 만들 수 있다.
-+ 
++ 반복문을 총 4번 돌리면서 배열을 원하는 방향으로 연산해 주고, 그것이 기존 값과 다르다면 계속해서 dfs를 돌려주면서 리턴값 ret을 갱신해준다.
++ 그리고 보드를 의미하는 B를 반복문을 한 번 반복할 때마다 90도로 돌려준다.
 
-### (3)
+### (3) rotate90, convert 함수
 ```python
+from copy import deepcopy
 
+N = int(input())
+B = [list(map(int, input().split())) for i in range(N)]  #[[2, 2, 2], [4, 4, 4], [8, 8, 8]]
+
+
+def convert(lst, N):
+    new_list = [i for i in lst if i]
+    for i in range(1, len(new_list)):
+        if new_list[i-1] == new_list[i]:
+            new_list[i-1] *= 2
+            new_list[i] = 0
+    new_list = [i for i in new_list if i]
+    return new_list + [0] * (N-len(new_list))
+
+
+def rotate90(B, N):
+    NB = deepcopy(B)
+    for i in range(N):
+        for j in range(N):
+            NB[j][N-i-1] = B[i][j]
+    return NB
+
+
+def dfs(N, B, count):
+    ret = max([max(i) for i in B])
+    if count == 0:
+        return ret
+    for _ in range(4):
+        X = [convert(i, N) for i in B]
+        if X != B:
+            ret = max(ret, dfs(N, X, count-1))
+        B = rotate90(B, N)
+    return ret
+
+
+print(dfs(N, B, 5))
 ```
++ rotate90 함수의 경우에는 외우는 것이 좋다.
++ convert 함수에서 우선 'new_list = [i for i in lst if i]'를 통해 0이 아닌 숫자들 즉, 양수만 남긴다.
++ 그 다음 for문을 통해 1부터 돌리며 지금 값과 그 전 값이 같으면, 지금 값은 0으로 만들고 전 값은 2배를 해준다. (2 2 2 2 배열 -> 4 0 4 0 배열)
++ 'new_list = [i for i in new_list if i]'을 통해 다시 0이 아닌 숫자들 즉, 양수만 남긴다.
++ 'return new_list + [0] * (N-len(new_list))'으로 남은 칸을 0으로 채운 배열을 리턴한다.
