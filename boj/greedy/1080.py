@@ -10,7 +10,7 @@ A, B = input_str(), input_str()
 def flip(x, y, A):
     for i in range(3):
         for j in range(3):
-            A[x+i][y+j] ^= 1
+            A[x+i][y+j] ^= 1 # 0^1은 1, 1^1은 0임을 이용하며 flip함
 
 ans = 0
 
