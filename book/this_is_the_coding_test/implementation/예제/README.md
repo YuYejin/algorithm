@@ -26,7 +26,10 @@
 ## 01_상하좌우
 <details>
 <summary>접기/펼치기 버튼</summary>
-![img_2.png](img_2.png)
+
+### 문제
+![image](https://user-images.githubusercontent.com/98029695/198034743-6039f158-f9c2-4178-af7a-af596be18a30.png)
+
 </details>
 
 ---
@@ -80,8 +83,15 @@ print(count)
 <summary>접기/펼치기 버튼</summary>
 
 ### 문제
+![image](https://user-images.githubusercontent.com/98029695/198034985-8e6c76ae-fdf7-4cc5-afcd-07b929c0843a.png)
 
-### 문제 풀이 팀
+나이트는 수평으로 두 칸 이동 후 수직으로 한 칸 이동하거나 수직으로 두 칸 이동 후 수평으로 한 칸 이동하는 것이 가능하다.<br>
+8x8 좌표 평면상에서 나이트의 위치가 주어졌을 때 나이트가 이동할 수 있는 경우의 수를 출력하는 프로그램을 작성하시오.<br>
+이때 행의 위치를 표현할 때는 1부터 8로 표현하고, 열 위치를 표현할 때에는 a부터 h로 표현한다.
+
+### 문제 풀이 팁
+'01_상하좌우' 문제에서는 dx, dy 리스트를 선언해 이동할 방향을 기록할 수 있도록 하였다.<br>
+이 문제에서는 steps 변수가 dx와 dy 변수의 기능을 대신하여 수행한다. 2가지 형태 모두 자주 사용되므로 참고하자.
 
 </details>
 
