@@ -15,7 +15,7 @@ for i in range(N):
     min_list.append(min(list(map(int, input().split()))))
 print(max(min_list))
 
-# 입출력 예시 -------------------------------------
+# 답안 예시 -------------------------------------
 ## min() 함수를 이용하는 답안 예시
 n, m = map(int, input().split())
 
